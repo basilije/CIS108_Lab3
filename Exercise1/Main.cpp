@@ -6,7 +6,7 @@
 
 using namespace std;
 
-string intOrdoubleToString(double int_or_double_number)
+string intOrDoubleToString(double int_or_double_number)
 {
 	string to_return;
 	if (int_or_double_number == 0)
@@ -63,7 +63,7 @@ int main()
 		if (get_key == 13 || char_key == 'c' || char_key == 'C' || char_key == 'r' || char_key == 'R')
 		{
 			ops_in_progress = false;
-			key_sequence = intOrdoubleToString(calculator_response);
+			key_sequence = intOrDoubleToString(calculator_response);
 			cout << "\r                              ";
 			cout << "\r> " << key_sequence_to_print << "\n" << key_sequence << "\n";
 			previous_key_sequence = "";
@@ -71,7 +71,7 @@ int main()
 		}
 
 		if (calculator_response != 0 && ops_in_progress)
-			key_sequence_to_print = previous_key_sequence + intOrdoubleToString(calculator_response);
+			key_sequence_to_print = previous_key_sequence + intOrDoubleToString(calculator_response);
 		else
 			key_sequence_to_print = key_sequence;
 
