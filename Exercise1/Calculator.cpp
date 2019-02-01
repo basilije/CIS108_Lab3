@@ -1,23 +1,23 @@
 #include <math.h> 
 
-double first_number = 0;
-double second_number = 0;
-double result_to_return = 0;
-double memory_value = 0;
-int decimal_place = 0;
-int number_in_use = 1;
-char operation_in_progress = char(0);
-int digit;
-char char_key;
+double first_number = 0; // double to store the first number we use
+double second_number = 0; // double to store the second number we use
+double result_to_return = 0; // double to store result we neeed to return
+double memory_value = 0;  // double to store the memory when needed
+int decimal_place = 0; // int used to remember on which decimal places we are during entering the number
+int number_in_use = 1; // int used to remember with which number we currently operate
+char operation_in_progress = char(0); // char that remember which calculation operation we currenty use
+int digit; // int used to store which digit is currently pressed
+char char_key; // char to store the current pressed key
 
-
+// main function in this file that response with calculation needed
 double doSomething(int pressed_key)
 {
-	char_key = char(pressed_key);
+	char_key = char(pressed_key); // convert the int to the char actually pressed
 	switch (char_key)
 	{
 
-		// "0", "1", "2", "3', "4", "5", "6", "7", "8", "9"
+	// if the digit is pressed
 	case '0': case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9':
 		digit = pressed_key - 48;
 		if (decimal_place == 0)
@@ -45,13 +45,13 @@ double doSomething(int pressed_key)
 		}
 		break;
 
-	// "."
+	// if the dot is pressed
 	case '.':
 		if (decimal_place == 0)
 			decimal_place = 1;
 		break;
 
-	// "*", "+", "-", "/", "^"
+	// if some calculation button is pressed
 	case '*': case '+': case '-': case '/': case '^':
 		operation_in_progress = char_key;
 		number_in_use = 2;
@@ -60,8 +60,9 @@ double doSomething(int pressed_key)
 		break;
 
 
-	// "ENTER"
+	// if "Enter" is pressed
 	case char(13):
+		// determine which calculation button is previously pressed
 		switch (operation_in_progress)
 		{
 		case '*': // "*"
@@ -85,37 +86,38 @@ double doSomething(int pressed_key)
 			break;
 		}
 
+		// reset variables after calculation
 		first_number = result_to_return;
 		second_number = 0;
 		decimal_place = 0;
 		operation_in_progress = 0;
 		break;
 
-		// "c", "C"
+		// if the clear key is pressed
 	case 'c': case 'C':
 		result_to_return = 0;
 		first_number = result_to_return;
 		number_in_use = 1;
 		break;
 
-		// "s", "S"
+		// if the store memory key is pressed
 	case 's': case 'S':
 		memory_value = result_to_return;
 		break;
 
-		// "r", "R"
+		// if the restore memory key is pressed
 	case 'r': case 'R':
 		result_to_return = memory_value;
 		first_number = result_to_return;
 		number_in_use = 1;
 		break;
 
-		// "m", "M"
+		// if the memory clear key is pressed
 	case 'm': case 'M':
 		memory_value = 0;
 		break;
 
-		// "i", "I"
+		// if the key for inversion is pressed
 	case 'i': case 'I':
 		first_number = 0 - result_to_return;
 		number_in_use = 1;
@@ -127,7 +129,7 @@ double doSomething(int pressed_key)
 		break;
 	}
 
-	// not "ENTER"
+	// if not "Enter" is pressed determine which number to return
 	if (pressed_key != char(13))
 	{
 		if (number_in_use == 1)
