@@ -27,11 +27,11 @@ string intOrdoubleToString(double int_or_double_number)
 			to_return = to_string(int_or_double_number);
 
 			// but cut the zeros if remaining
-			int i = to_return.length();
+			int i = static_cast<int>(to_return.length());
 			while (to_return[i - 1] == '0')
 			{
 				to_return.erase(i - 1, 1);
-				i = to_return.length();
+				i = static_cast<int>(to_return.length());
 			}
 
 		}
